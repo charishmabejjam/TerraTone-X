@@ -1,0 +1,497 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TerraTone X</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><style>
+:root{--bg:#07120d;--p:#102119;--p2:#142b20;--line:#b4e8c21c;--txt:#eff8ef;--muted:#92a99a;--g:#9be58f;--lime:#d1f18b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:14px 'DM Sans',sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hide{display:none!important}.brand{font:700 18px 'Space Grotesk';letter-spacing:.06em}.brand span{color:var(--g)}.mark{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--lime),#48c58d);color:#092016;margin-right:9px;font-size:22px}
+#login{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;position:relative;overflow:hidden;background:radial-gradient(ellipse at 18% 20%,#24583a 0,transparent 42%),radial-gradient(ellipse at 85% 90%,#1c4b35 0,transparent 45%),#06100c}
+#login{min-height:100vh;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(390px,.88fr);position:relative;isolation:isolate;overflow:hidden;background:#06100c}
+#login:before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(ellipse at 25% 45%,#1a5638 0,transparent 43%),radial-gradient(ellipse at 83% 12%,#173b2b 0,transparent 35%),linear-gradient(125deg,#07140e,#06100c 62%,#0a1a11)}
+#login:after{content:"";position:absolute;inset:0;z-index:-1;opacity:.22;background-image:linear-gradient(#a8e7b10c 1px,transparent 1px),linear-gradient(90deg,#a8e7b10c 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(90deg,#000,transparent 88%)}
+#login .aurora{inset:-70%;opacity:.5;filter:blur(100px)}
+#login .particles{opacity:.12;background-size:110px 110px}
+#login .rings{right:auto;left:18%;top:17%;width:min(620px,58vw);height:min(620px,58vw);border:1px solid #a5edb52b;box-shadow:0 0 120px #6be39b12, inset 0 0 100px #6be39b08}
+#login .rings:before{inset:9%;border-color:#a5edb526;transform:rotate(34deg) scaleX(.72)}
+#login .rings:after{inset:19%;border-color:#a5edb51f;transform:rotate(-28deg) scaleX(.72)}
+.loginleft{padding:5vh 6.5vw 4vh;display:flex;flex-direction:column;justify-content:space-between;min-height:100vh}
+.loginleft .brand{display:flex;align-items:center;font-size:17px;letter-spacing:.11em}
+.loginleft .mark{width:42px;height:42px;border-radius:14px;box-shadow:0 0 28px #7fe39a35}
+.hero{max-width:650px;position:relative;margin:auto 0;padding:35px 0 25px}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 12px;border:1px solid #9be58f38;border-radius:30px;background:#10291c99;backdrop-filter:blur(10px)}
+.hero .eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:#baf59c;box-shadow:0 0 12px #baf59c}
+.hero h1{font:600 clamp(43px,5.4vw,78px)/.99 'Space Grotesk';letter-spacing:-.065em;margin:25px 0 18px;text-shadow:0 8px 40px #0005}
+.hero h1 em{background:linear-gradient(100deg,#e2f8bf,#8fe6a0 55%,#5bcf9a);background-clip:text;color:transparent}
+.hero p{max-width:470px;color:#b7cdbd;line-height:1.85;font-size:14px}
+.login-visual{position:absolute;right:-5%;top:4%;width:240px;height:240px;border-radius:50%;display:grid;place-items:center;pointer-events:none}
+.login-visual .core{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#d6ffb7,#4fc58d 42%,#123a27 74%);box-shadow:0 0 50px #79e5a45c,0 0 0 18px #8de4a00b,0 0 0 38px #8de4a008;font-size:31px;color:#092016}
+.login-visual .orbit{position:absolute;inset:8px;border:1px solid #a4efb54a;border-radius:50%;animation:spin 22s linear infinite}
+.login-visual .orbit:before,.login-visual .orbit:after{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:#d5f5a4;box-shadow:0 0 18px #c9f6a2;top:18%;left:17%}
+.login-visual .orbit:after{top:auto;left:auto;bottom:13%;right:20%;width:5px;height:5px}
+.login-visual .orbit.two{inset:28px;transform:rotate(55deg);animation:spin 32s linear infinite reverse;border-style:dashed;opacity:.6}
+.waves{height:64px;margin-top:28px;gap:5px}
+.waves i{width:3px;box-shadow:0 0 10px #71dc9b55}
+.login-metrics{display:flex;gap:28px;margin-top:30px;flex-wrap:wrap}
+.login-metrics div{border-left:1px solid #9be58f55;padding-left:12px}
+.login-metrics strong{display:block;font:600 19px 'Space Grotesk';color:#e4f7e5}
+.login-metrics span{display:block;color:#829b8b;font-size:9px;letter-spacing:.12em;margin-top:4px}
+.foot{color:#789183;font-size:9px;letter-spacing:.18em}
+.loginright{display:grid;place-items:center;padding:32px 6vw 32px 20px;position:relative}
+.loginright:before{content:"";position:absolute;inset:12% 8% 12% 0;border-left:1px solid #b4e8c21a;pointer-events:none}
+.loginright .card{position:relative;width:min(430px,100%);padding:36px 35px 30px;border-radius:25px;background:linear-gradient(145deg,#14291fef,#0a1711f5);border:1px solid #b6e9c23b;box-shadow:0 30px 100px #0009,0 0 60px #6be39b0b;backdrop-filter:blur(24px)}
+.loginright .card:before{content:"";position:absolute;inset:0 18% auto;height:1px;background:linear-gradient(90deg,transparent,#b8efad99,transparent)}
+.loginright .card h2{font-size:32px;letter-spacing:-.055em;margin:12px 0 7px}
+.loginright .card .eyebrow{font-size:9px;letter-spacing:.2em}
+.loginright .field{margin:20px 0}
+.loginright .field input{padding:14px 15px;border-radius:12px;background:#07140eaa;border-color:#b4e8c229}
+.loginright .field input:focus{box-shadow:0 0 0 3px #9be58f14}
+.loginright .btn.full{padding:14px;border-radius:12px}
+.loginright .btn.alt.full{margin-top:10px;background:#173326aa}
+.loginright .note{border-top:1px solid #b4e8c21a;padding-top:15px;margin-top:20px}
+@media(max-width:900px){#login{grid-template-columns:1fr}.loginleft{min-height:auto;padding:28px 8vw 0}.hero{margin:45px 0 15px}.login-visual{right:0;top:0;width:170px;height:170px}.loginright{padding:25px 8vw 40px}.loginright:before{display:none}.foot{display:block}}
+@media(max-width:570px){.loginleft{padding:22px 6vw 0}.hero{margin:38px 0 12px}.hero h1{font-size:43px}.hero p{font-size:13px}.login-visual{opacity:.55;right:-35px;top:0;transform:scale(.75)}.loginright{padding:20px 6vw 35px}.loginright .card{padding:28px 23px}.login-metrics{gap:17px}.login-metrics strong{font-size:16px}}
+.aurora{position:absolute;inset:-50%;background:conic-gradient(from 30deg,transparent,#4acb7c55,transparent,#b3e98b33,transparent);filter:blur(70px);animation:spin 24s linear infinite}.rings{position:absolute;right:2%;top:8%;width:480px;height:480px;border:1px solid #a5edb533;border-radius:50%;box-shadow:0 0 90px #6be39b20;animation:float 9s ease-in-out infinite}.rings:before,.rings:after{content:"";position:absolute;inset:50px;border:1px solid #a5edb52b;border-radius:50%;transform:rotate(50deg) scaleX(.6)}.rings:after{inset:100px;transform:rotate(-50deg) scaleX(.65)}.particles{position:absolute;inset:0;background-image:radial-gradient(#d6ffcf 1px,transparent 1.5px);background-size:80px 80px;opacity:.17;animation:drift 22s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@keyframes float{50%{transform:translate(-22px,18px) scale(1.04)}}@keyframes drift{to{background-position:160px 200px}}.loginleft,.loginright{position:relative;z-index:1}.loginleft{padding:7vh 8vw;display:flex;flex-direction:column;justify-content:space-between}.hero{max-width:620px}.eyebrow{color:var(--g);font-size:10px;letter-spacing:.2em;font-weight:700;text-transform:uppercase}.hero h1{font:600 clamp(42px,5vw,76px)/1.02 'Space Grotesk';letter-spacing:-.05em;margin:18px 0}.hero h1 em{font-style:normal;color:var(--g)}.hero p{max-width:480px;color:#bdd0c1;line-height:1.8;font-size:15px}.waves{display:flex;align-items:center;gap:4px;height:80px;margin-top:25px}.waves i{width:3px;border-radius:8px;background:linear-gradient(var(--lime),#42c994);height:var(--h);animation:pulse 1s ease-in-out infinite alternate;animation-delay:var(--d)}@keyframes pulse{to{height:calc(var(--h)*.25);opacity:.5}}.foot{color:#789183;font-size:10px;letter-spacing:.16em}.loginright{display:grid;place-items:center;padding:25px}.card{background:linear-gradient(145deg,#142a20ed,#0b1712ed);border:1px solid #b6e9c22b;border-radius:24px;padding:34px;box-shadow:0 25px 90px #0007;backdrop-filter:blur(20px);width:min(420px,100%)}h2,h3{font-family:'Space Grotesk';letter-spacing:-.03em}.card h2{font-size:29px;margin:10px 0}.muted{color:var(--muted);font-size:12px;line-height:1.7}.field{margin:16px 0}.field label{display:block;font-size:10px;color:#a9c0b0;margin-bottom:8px;letter-spacing:.1em}.field input,.field select{width:100%;padding:13px;background:#07140e;border:1px solid var(--line);border-radius:10px;color:white;outline:0}.field input:focus{border-color:var(--g)}.btn{border:0;border-radius:11px;padding:12px 16px;background:linear-gradient(110deg,var(--lime),#60d69b);color:#092016;font-weight:700}.btn:hover{filter:brightness(1.07);transform:translateY(-1px)}.btn.alt{background:#1b3728;color:#e5f4e8;border:1px solid var(--line)}.btn.ghost{background:transparent;color:#c7ddcd;border:1px solid var(--line)}.full{width:100%;margin-top:10px}.note{text-align:center;color:#779083;font-size:10px;line-height:1.6;margin-top:18px}
+#app{display:flex;min-height:100vh}.sidebar{width:238px;flex-shrink:0;background:#091610;border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;height:100vh;position:sticky;top:0}.sidebrand{padding:0 9px 25px}.navlabel{font-size:9px;letter-spacing:.17em;color:#698475;padding:15px 12px 7px}.nav{display:flex;gap:12px;align-items:center;width:100%;border:1px solid transparent;background:none;color:#9bb1a2;padding:12px;border-radius:10px;text-align:left;margin:2px 0}.nav:hover,.nav.active{background:#183124;color:#e6f6e9;border-color:#a9e6b21c}.ico{width:18px;text-align:center;color:var(--g);font-size:16px}.bottom{margin-top:auto;border-top:1px solid var(--line);padding-top:14px}.main{flex:1;min-width:0;max-width:1600px;margin:auto;padding:28px 34px 60px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;color:#8ea597;font-size:11px}.pill,.tag{font-size:10px;padding:6px 10px;border-radius:20px;background:#173525;color:#a9e6a5;border:1px solid #a2e5a52a}.page{display:none;width:100%}.page.active{display:block;animation:fade .3s ease}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.title{font:600 31px 'Space Grotesk';margin:8px 0}.sub{color:var(--muted);font-size:12px;margin:0 0 23px}.grid{display:grid;gap:15px}.stats{grid-template-columns:repeat(4,1fr);margin:18px 0}.panel{background:linear-gradient(145deg,#102219,#0b1712);border:1px solid var(--line);border-radius:16px;padding:19px}.statlabel{font-size:10px;color:#91a99a}.statvalue{font:600 28px 'Space Grotesk';margin:12px 0 4px}.green{color:var(--g);font-size:11px}.split{grid-template-columns:1.3fr .9fr;align-items:start}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.head h3{margin:0;font-size:15px}.chart{height:190px;width:100%;display:block}.feedrow,.historyrow{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--line)}.feedrow:last-child,.historyrow:last-child{border:0}.bubble{width:34px;height:34px;border-radius:10px;background:#1b3828;display:grid;place-items:center;color:var(--g)}.feedrow strong,.historyrow strong{font-size:11px}.feedrow small,.historyrow small{display:block;color:#83998b;font-size:10px;margin-top:4px}.feedrow .right{margin-left:auto;color:var(--g);font-size:11px}.mapbox{height:420px;border-radius:13px;overflow:hidden;border:1px solid var(--line)}#map,#map2{height:100%;background:#10251b}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#11261b;color:#eff8ef}.drop{border:1px dashed #7bc68c66;border-radius:14px;background:#0a1a12;padding:24px;text-align:center;min-height:0}.drop .big{font-size:30px}.drop h3{margin:10px 0 4px}.audio{width:100%;margin-top:15px}.row{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.progress{height:6px;background:#21372a;border-radius:10px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#69d68d,#d1f18b);transition:.4s}.categories>div{margin:14px 0}.catline{display:flex;justify-content:space-between;font-size:11px;margin-bottom:6px}.dna{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px}.finger{width:min(330px,100%);aspect-ratio:1;border-radius:50%;margin:auto;display:grid;place-items:center;background:repeating-radial-gradient(circle,transparent 0 8px,#80df9a66 9px 10px,transparent 11px 17px);animation:spin 50s linear infinite}.finger span{width:85px;height:85px;border-radius:50%;background:#0b1b12;border:1px solid var(--g);display:grid;place-items:center;text-align:center;color:var(--g);font-weight:700}.assistant{position:fixed;right:22px;bottom:20px;z-index:900}.assistbtn{width:52px;height:52px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--lime),#4bc58e);font-size:22px;color:#082016;box-shadow:0 8px 30px #5bd58b55}.chat{position:absolute;bottom:64px;right:0;width:300px;background:#102319;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 20px 60px #0008}.chatlog{height:150px;overflow:auto;font-size:11px;line-height:1.6;color:#c1d2c5}.chatlog p{background:#1a3525;padding:9px;border-radius:9px}.chatinput{display:flex;gap:6px}.chatinput input{min-width:0;flex:1;background:#07140e;border:1px solid var(--line);border-radius:8px;padding:9px;color:white}.toast{position:fixed;right:18px;top:18px;background:#173725;border:1px solid #9be58f55;border-radius:10px;padding:12px 16px;z-index:2000;font-size:12px}.legend{display:flex;gap:15px;color:#9db3a3;font-size:10px;margin-top:12px}
+@media(max-width:900px){#login{grid-template-columns:1fr}.loginleft{padding:30px 8vw 0}.hero{margin:40px 0 10px}.foot{display:none}.sidebar{width:66px;padding:15px 8px}.sidebrand .brandname,.navlabel,.navtext,.usertext{display:none}.nav{justify-content:center;padding:13px 4px}.main{padding:20px 15px}.stats{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}}@media(max-width:570px){.stats{grid-template-columns:1fr 1fr}.dna{grid-template-columns:1fr}.title{font-size:25px}.mapbox{height:330px}.card{padding:25px}.main{padding:17px 11px}}
+
+.hero h1{font-size:clamp(56px,6.4vw,90px)}
+.login-metrics strong{text-transform:none;font-size:17px;letter-spacing:-.025em}
+.login-metrics span{font-size:8px}
+.sound-console{position:absolute;right:-2%;top:3%;width:270px;height:170px;border:1px solid #9de5ad3b;border-radius:18px;background:linear-gradient(145deg,#153a28dd,#07140fe8);box-shadow:0 22px 70px #0008,0 0 55px #67dc9630;padding:17px;display:flex;flex-direction:column;justify-content:space-between;backdrop-filter:blur(16px);transform:rotate(3deg)}
+.console-top,.console-bottom{display:flex;justify-content:space-between;font-size:8px;letter-spacing:.12em;color:#9eb9a6}
+.live-dot{color:#bdf49b}.console-wave{height:85px;display:flex;align-items:center;justify-content:center;gap:3px}
+.console-wave i{width:3px;border-radius:8px;background:linear-gradient(#d4f6a6,#47ca91);box-shadow:0 0 12px #7be5a566;animation:pulse 1.15s ease-in-out infinite alternate}
+.overview-visuals{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 18px}
+.visual-tile{min-height:112px;border-radius:14px;overflow:hidden;padding:15px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;background-size:cover;background-position:center;border:1px solid #b4e8c22b}
+.visual-tile:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#06110de8,transparent 85%)}
+.visual-tile span,.visual-tile b{position:relative;z-index:1}.visual-tile span{font-size:8px;letter-spacing:.15em;color:#c3e9c8}.visual-tile b{font:600 17px 'Space Grotesk';margin-top:5px}
+.visual-tile.forest{background-image:linear-gradient(90deg,#0b241899,#0b241844),url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=80')}
+.visual-tile.wetland{background-image:linear-gradient(90deg,#0b241899,#0b241844),url('https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80')}
+.visual-tile.coast{background-image:linear-gradient(90deg,#0b241899,#0b241844),url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80')}
+.audio-queue{display:grid;gap:7px;margin-top:12px;text-align:left}
+.queue-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#0c1c13}
+.queue-item small{display:block;color:#88a292;font-size:9px;margin-top:3px}
+.queue-item button{margin-left:auto}.queue-item .qname{min-width:0;overflow-wrap:anywhere;font-size:10px}.queue-item .qstate{font-size:9px;color:var(--g)}
+.map-status{font-size:10px;color:#9eb9a6;margin-top:9px}
+.map-fallback{height:100%;min-height:260px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 60% 40%,#244b36,#10271d 58%,#091710);display:grid;place-items:center}
+.map-fallback svg{width:100%;height:100%;position:absolute;inset:0}
+.map-fallback .map-label{position:absolute;z-index:2;background:#07140ddd;border:1px solid #a9e6b244;padding:7px 10px;border-radius:8px;font-size:10px;color:#dff5e2}
+@media(max-width:900px){.sound-console{position:relative;right:auto;top:auto;margin:25px 0 0;width:min(100%,340px)}.overview-visuals{grid-template-columns:1fr}.visual-tile{min-height:95px}}
+
+/* Refined login experience */
+#login{position:relative;isolation:isolate;background:linear-gradient(120deg,#07130d 0%,#0a1b12 48%,#0c2117 100%);overflow:hidden}
+#login:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#06120de8 0%,#06120d99 52%,#06120d66 100%),url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2000&q=85') center/cover;opacity:.58}
+#login .aurora,#login .rings,#login .particles{display:none}
+.loginleft{position:relative;padding:42px 6vw 34px;min-height:100vh}
+.loginleft .brand{font:700 18px 'Space Grotesk';letter-spacing:.14em;color:#eff8ee}
+.loginleft .brandname{display:inline-flex;gap:0;align-items:center}
+.loginleft .brandname span{color:#9ee6a5}
+.hero{max-width:640px;margin:auto 0;padding:30px 0 20px}
+.hero h1{font-size:clamp(54px,6.3vw,88px);line-height:.98;max-width:590px}
+.hero p{max-width:440px;font-size:15px;color:#d0dfd2}
+.login-visual{position:relative;right:auto;top:auto;width:min(390px,100%);height:205px;margin:0 0 27px;border-radius:22px;pointer-events:none}
+.login-photo{height:100%;position:relative;overflow:hidden;border:1px solid #c8edce55;border-radius:22px;background:linear-gradient(90deg,#071a12e8,#071a1240),url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85') center 48%/cover;box-shadow:0 20px 55px #0007}
+.photo-glow{position:absolute;inset:0;background:linear-gradient(0deg,#06140fee,transparent 75%)}
+.photo-caption{position:absolute;left:20px;bottom:47px;display:flex;flex-direction:column;gap:5px}
+.photo-caption span{font-size:8px;letter-spacing:.2em;color:#b7e9b7}
+.photo-caption b{font:600 21px 'Space Grotesk';color:#f3fff2}
+.photo-caption small{font-size:10px;color:#bfd3c2}
+.photo-wave{position:absolute;right:18px;bottom:20px;height:42px;display:flex;align-items:center;gap:3px}
+.photo-wave i{display:block;width:3px;border-radius:5px;background:#a9e9a6;box-shadow:0 0 8px #9be6a5;animation:wavePulse .9s ease-in-out infinite alternate}
+.photo-wave i:nth-child(3n){animation-delay:-.5s}.photo-wave i:nth-child(2n){animation-delay:-.25s}
+@keyframes wavePulse{from{height:5px;opacity:.45}to{height:35px;opacity:1}}
+.waves{height:30px;margin-top:20px;opacity:.5}
+.login-metrics{margin-top:22px;gap:24px}
+.loginright{padding:36px 6vw 36px;position:relative}
+.loginright:before{display:none}
+.loginright .card{width:min(410px,100%);padding:38px 36px 32px;border-radius:24px;background:#081810ee;border:1px solid #c3edc43b;box-shadow:0 28px 90px #0009;backdrop-filter:blur(18px)}
+.loginright .card h2{font-size:34px}
+.loginright .field{margin:18px 0}
+.loginright .field input{padding:15px;border-radius:11px}
+.loginright .btn.full{padding:15px}
+.loginright .note{font-size:10px;color:#91a997}
+.overview-visuals{margin-top:4px;margin-bottom:12px}
+.visual-tile{min-height:88px}
+@media(max-width:900px){.loginleft{min-height:auto;padding:28px 7vw 0}.loginright{padding:25px 7vw 42px}.login-visual{width:min(390px,100%);height:170px}.hero{margin:22px 0 12px}}
+@media(max-width:570px){.loginleft{padding:22px 6vw 0}.hero h1{font-size:46px}.loginright .card{padding:28px 22px}.login-visual{height:150px}}
+
+.india-atlas{min-height:390px;background:radial-gradient(ellipse at 50% 45%,#1b3828,#091710 75%);border-radius:14px;padding:12px;position:relative}
+.india-atlas svg{width:100%;height:350px;display:block}
+.atlas-key{display:flex;flex-wrap:wrap;gap:14px;padding:4px 12px 8px;font-size:10px;color:#c1d8c6}
+.atlas-key span{display:flex;align-items:center;gap:6px}.atlas-key i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.atlas-count{text-align:right;font-size:9px;color:#86a18e;padding:0 12px 7px}
+.timeline-list{display:grid;gap:0;margin:10px 0 18px}
+.timeline-item{display:flex;gap:13px;position:relative;padding:0 0 18px 4px}
+.timeline-item:not(:last-child):before{content:"";position:absolute;left:9px;top:18px;bottom:0;width:1px;background:#8bd79b55}
+.timeline-node{width:12px;height:12px;flex:0 0 12px;border-radius:50%;margin-top:4px;box-shadow:0 0 12px currentColor}
+.timeline-item b{font-size:12px}.timeline-item small{display:block;color:#90a899;font-size:10px;margin-top:4px}
+
+/* Login v3: centered, compact, viewport-fitted */
+#login.login-screen{height:100svh;min-height:620px;max-height:100svh;overflow-y:auto;position:relative;display:flex;align-items:center;justify-content:center;padding:22px 24px;background:#07150e;isolation:isolate}
+#login .login-backdrop{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,#06130bd9,#06130bc9),url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2000&q=85') center 48%/cover}
+#login .login-backdrop:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,#24563855,transparent 58%),linear-gradient(90deg,#06130b88,transparent 45%,#06130b88)}
+#login .aurora,#login .particles,#login .rings{display:none!important}
+.login-shell{width:min(100%,1000px);height:100%;max-height:900px;min-height:570px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+.login-brand{display:flex;align-items:center;justify-content:space-between;padding:2px 4px}
+.login-brand .brandname{font:700 19px 'Space Grotesk';letter-spacing:.15em;color:#f3fff2}
+.login-brand .brandname span{color:#a7e7a4}
+.brand-caption{font-size:9px;letter-spacing:.18em;color:#b4cbb8}
+.login-center{width:min(100%,510px);margin:auto;display:flex;flex-direction:column;align-items:center;text-align:center;padding:12px 0}
+.login-kicker{font-size:9px;letter-spacing:.17em;color:#c3e3c7;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:#a6e99d;box-shadow:0 0 12px #a6e99d;animation:loginBlink 1.8s infinite}
+@keyframes loginBlink{50%{opacity:.35;transform:scale(.75)}}
+.login-center>h1{font:600 clamp(32px,4.5vw,49px)/1.04 'Space Grotesk';letter-spacing:-.055em;color:#f4fff3;margin:0;max-width:500px}
+.login-center>h1 em{font-style:normal;color:#a6e49d}
+.login-intro{font-size:12px;line-height:1.6;color:#c0d3c3;max-width:420px;margin:10px auto 18px}
+.login-card{width:100%;text-align:left;padding:22px 25px 18px;border:1px solid #d3efd344;border-radius:20px;background:linear-gradient(145deg,#0c2118f5,#07160ff5);box-shadow:0 22px 75px #0009,0 0 50px #69c77b12;backdrop-filter:blur(20px)}
+.login-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.login-card-head .eyebrow{font-size:8px;letter-spacing:.16em;color:#9fdaa4}
+.login-card-head h2{font:600 23px 'Space Grotesk';color:#f1fff1;margin:5px 0 2px}
+.login-card-head p{font-size:10px;color:#9db6a3;margin:0}
+.login-card-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;border:1px solid #9edca54d;background:#9edca511;color:#b9efad;font-size:29px}
+.login-card .field{margin:11px 0}
+.login-card .field label{font-size:8px;letter-spacing:.13em;color:#a9c4ae}
+.login-card .field input{height:43px;padding:0 13px;border:1px solid #b4d5bd30;border-radius:9px;background:#06140d;color:#f2fff2;font-size:12px}
+.login-card .field input:focus{outline:1px solid #91d99b;border-color:#91d99b}
+.login-card .btn.full{height:43px;margin-top:8px;border-radius:9px;font-size:11px}
+.login-card .btn.alt.full{margin-top:8px}
+.login-note{display:flex;align-items:center;justify-content:center;gap:7px;font-size:9px;color:#89a592;margin-top:13px}
+.login-note span{color:#9fe3a2;font-size:8px}
+.login-signal{display:flex;align-items:center;justify-content:center;gap:13px;color:#91ae99;font-size:8px;letter-spacing:.15em;margin-top:17px}
+.login-signal-bars{height:24px;display:flex;align-items:center;gap:2px}
+.login-signal-bars:before{content:"";display:block;width:100px;height:24px;background:repeating-linear-gradient(90deg,#8ee19a 0 2px,transparent 2px 6px);mask-image:linear-gradient(0deg,transparent,#000 30%,#000 70%,transparent);opacity:.65}
+.login-footer{text-align:center;font-size:8px;letter-spacing:.2em;color:#8eaa95;padding:7px 0 0}
+.login-footer i{font-style:normal;color:#b2e6a8;padding:0 5px}
+@media(max-height:720px){#login.login-screen{min-height:560px;padding-top:13px;padding-bottom:13px}.login-shell{min-height:530px}.login-center>h1{font-size:36px}.login-intro{margin:7px auto 12px}.login-card{padding:16px 22px 13px}.login-card-head{margin-bottom:8px}.login-card .field{margin:8px 0}.login-card .field input{height:38px}.login-card .btn.full{height:38px;margin-top:6px}.login-signal{margin-top:9px}.login-footer{padding-top:2px}}
+@media(max-width:560px){#login.login-screen{padding:16px;min-height:620px}.login-brand .brandname{font-size:16px}.brand-caption{font-size:7px}.login-center>h1{font-size:34px}.login-intro{font-size:11px}.login-card{padding:18px 17px}.login-card-head h2{font-size:20px}.login-signal{gap:8px;font-size:7px}.login-footer{font-size:7px}}
+
+.india-atlas{width:100%;min-height:590px;padding:16px 18px 12px;border:1px solid #a6d6ad22;border-radius:16px;background:radial-gradient(ellipse at 50% 42%,#1d3b2a,#091710 72%);overflow:hidden}
+.atlas-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:3px 8px 8px}
+.atlas-heading b{display:block;font:600 12px 'Space Grotesk';letter-spacing:.1em;color:#e2f3e2}
+.atlas-heading small{display:block;color:#91aa98;font-size:10px;margin-top:4px}
+.atlas-heading>span{font-size:9px;letter-spacing:.1em;color:#a8e3a9;border:1px solid #9cdda344;padding:7px 10px;border-radius:20px}
+.india-atlas svg{display:block;width:100%;height:490px;max-height:62vh;min-height:390px}
+.india-atlas .state-label{fill:#f0fff0;font:8px Arial,sans-serif;text-anchor:middle;paint-order:stroke;stroke:#183725;stroke-width:2px;stroke-linejoin:round;opacity:.9}
+.atlas-key{justify-content:center;gap:18px;padding:8px 6px 4px}
+.atlas-count{text-align:center;font-size:9px;color:#89a893;padding:7px 0 0}
+@media(max-width:700px){.india-atlas{padding:10px;min-height:480px}.india-atlas svg{height:390px;min-height:330px}.india-atlas .state-label{font-size:9px}.atlas-key{gap:9px;font-size:9px}}
+
+.review-meta>div{min-width:0;display:flex;flex-direction:column;gap:7px;padding:10px 12px;background:rgba(255,255,255,.025);border:1px solid rgba(160,220,180,.09);border-radius:12px}
+.review-meta small{display:block;line-height:1.35;color:#9bb9aa}
+.review-meta b{display:block;line-height:1.45;overflow-wrap:anywhere;color:#eff8ef;font-weight:650}
+.conclusion-box{margin-top:16px;padding:18px 20px;border:1px solid rgba(139,226,140,.22);border-radius:16px;background:linear-gradient(135deg,rgba(35,91,58,.24),rgba(10,27,20,.72))}
+.conclusion-box h3{margin:0 0 8px;color:#b8f6a8}
+.conclusion-box .conclusion-intro{color:#b3c9bd;margin:0 0 12px;line-height:1.5}
+.conclusion-list{margin:0;padding-left:20px;display:grid;gap:9px;color:#e4efe7;line-height:1.5}
+.conclusion-list li::marker{color:#9be68d}
+.historyrow .history-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+</style></head><body>
+<section id="login" class="login-screen">
+  <div class="login-backdrop"></div>
+  <div class="login-shell">
+    <header class="login-brand"><span class="brandname">TERRA<span>TONE</span> X</span><span class="brand-caption">ENVIRONMENTAL ACOUSTIC INTELLIGENCE</span></header>
+    <main class="login-center">
+      <div class="login-kicker"><span class="pulse-dot"></span> YOUR FIELD INTELLIGENCE WORKSPACE</div>
+      <h1>Every place has a <em>soundprint.</em></h1>
+      <p class="login-intro">Listen to nature. Understand the signals. Track how soundscapes change across places and time.</p>
+      <div class="login-card">
+        <div class="login-card-head"><div><span class="eyebrow">WELCOME TO TERRATONE X</span><h2>Enter your workspace</h2><p>Sign in to explore your acoustic observations.</p></div><div class="login-card-icon">⌁</div></div>
+        <div class="field"><label>RESEARCHER NAME</label><input id="username" value="Explorer" placeholder="Enter your name" autocomplete="name"></div>
+        <div class="field"><label>EMAIL ADDRESS</label><input id="email" type="email" placeholder="you@example.com" autocomplete="email" required></div>
+        <button class="btn full" onclick="login()">Enter TerraTone X <span>↗</span></button>
+        <button class="btn alt full" onclick="demo()">✦ Explore demo workspace</button>
+        <div class="login-note"><span>●</span> Demo data is labelled. Your local workspace stays in this browser.</div>
+      </div>
+      <div class="login-signal"><span>FIELD RECORDINGS</span><div class="login-signal-bars"></div><span>ACOUSTIC INSIGHTS</span></div>
+    </main>
+    <footer class="login-footer">LISTEN TO NATURE <i>·</i> DETECT CHANGE <i>·</i> PROTECT LIFE</footer>
+  </div>
+</section>
+<div id="app" class="hide"><aside class="sidebar"><div class="sidebrand brand"><b class="mark">⌁</b><span class="brandname">TERRA<span>TONE</span> X</span></div><div class="navlabel">WORKSPACE</div><button class="nav active" data-page="overview"><i class="ico">◈</i><span class="navtext">Overview</span></button><button class="nav" data-page="studio"><i class="ico">◎</i><span class="navtext">Acoustic Lab</span></button><button class="nav" data-page="results"><i class="ico">▤</i><span class="navtext">Analysis Report</span></button><button class="nav" data-page="dna"><i class="ico">◉</i><span class="navtext">SoundDNA</span></button><button class="nav" data-page="change"><i class="ico">⌁</i><span class="navtext">EcoChange</span></button><button class="nav" data-page="mapPage"><i class="ico">⌖</i><span class="navtext">TerraMap</span></button><button class="nav" data-page="history"><i class="ico">◷</i><span class="navtext">History</span></button><div class="navlabel">TOOLS</div><button class="nav" data-page="assistantPage"><i class="ico">✧</i><span class="navtext">AI Assistant</span></button><button class="nav" data-page="settings"><i class="ico">⚙</i><span class="navtext">Settings</span></button><div class="bottom"><div class="feedrow"><div class="bubble" id="avatar">E</div><div class="usertext"><strong id="profileName">Explorer</strong><small>Field researcher</small></div></div><button class="nav" onclick="logout()">↪ <span class="navtext">Log out</span></button></div></aside>
+<main class="main"><div class="top"><span>TERRATONE X / <b id="crumb" style="color:white">Overview</b></span><span class="pill">● SYSTEM ONLINE</span></div>
+<section class="page active" id="overview"><div class="eyebrow">Environmental overview</div><h1 class="title">The living world, in sound.</h1><p class="sub">A snapshot of monitored soundscapes and environmental observations.</p><div class="overview-visuals"><div class="visual-tile forest"><span>FOREST SOUNDSCAPE</span><b>Listen for life.</b></div><div class="visual-tile wetland"><span>WETLAND SIGNALS</span><b>Read the water.</b></div><div class="visual-tile coast"><span>COASTAL MONITORING</span><b>Track the tide.</b></div></div><div class="grid stats"><div class="panel"><div class="statlabel">MONITORED LOCATIONS</div><div class="statvalue">24</div><div class="green">Across 6 ecosystems</div></div><div class="panel"><div class="statlabel">AUDIO OBSERVATIONS</div><div class="statvalue">1,284</div><div class="green">+12.8% this month</div></div><div class="panel"><div class="statlabel">SOUND EVENTS DETECTED</div><div class="statvalue">8,492</div><div class="green">Illustrative demo dataset</div></div><div class="panel"><div class="statlabel">CHANGE SIGNALS</div><div class="statvalue">07</div><div class="green">Require field verification</div></div></div><div class="grid split"><div class="panel"><div class="head"><h3>Soundscape activity</h3><span class="tag">7-day view</span></div><canvas id="chart" class="chart"></canvas><div class="legend">● Bioacoustic activity　<span style="color:#d4b578">● Ambient sound</span></div></div><div class="panel"><div class="head"><h3>Latest observations</h3><span class="muted">Demo feed</span></div><div id="feed"></div></div></div><div class="panel" style="margin-top:15px"><div class="head"><h3>Explore monitored landscapes</h3><button class="btn ghost" onclick="go('mapPage')">Open TerraMap ↗</button></div><div class="mapbox"><div id="map"></div></div><div class="map-status" id="mapStatus">Connecting to map…</div></div></section>
+<section class="page" id="studio"><div class="eyebrow">Acoustic intelligence lab</div><h1 class="title">Capture a soundscape.</h1><p class="sub">Upload a field recording or record from your microphone. Preview before analysis.</p><div class="grid split"><div class="panel"><div class="head"><h3>01 · Audio input</h3><span class="tag">WAV · MP3 · M4A</span></div><div class="drop"><div class="big">↥</div><h3>Drop your field recording</h3><p class="muted">or browse audio files from your device</p><input id="file" type="file" accept="audio/*" multiple hidden><button class="btn alt" onclick="document.getElementById('file').click()">Choose multiple audio files</button><div class="muted" id="filename" style="margin-top:12px">No files selected<div id="queue" class="audio-queue"></div></div></div><audio id="preview" class="audio hide" controls></audio><div class="row"><button class="btn alt" id="record" onclick="toggleRecord()">● Record audio</button><button class="btn ghost" onclick="clearAudio()">Clear</button></div><p class="muted" id="recordstatus">Microphone access is requested only when you press Record.</p></div><div class="panel"><div class="head"><h3>02 · Field context</h3><span class="tag">Optional</span></div><div class="field"><label>OBSERVATION NAME</label><input id="obsname" placeholder="Dawn chorus — Site 04"></div><div class="field"><label>ECOSYSTEM TYPE</label><select id="ecosystem"><option>Forest</option><option>Wetland</option><option>River</option><option>Coastal</option><option>Urban green space</option><option>Grassland</option></select></div><div class="field"><label>STATE</label><select id="stateSelect"><option value="">Select a state</option><option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option><option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option><option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option><option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option><option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option><option>Delhi</option><option>Jammu and Kashmir</option><option>Ladakh</option><option>Other</option></select></div>
+<div class="field"><label>CITY / DISTRICT</label><select id="citySelect"><option value="">Select city / district</option><option>Visakhapatnam</option><option>Amaravati</option><option>Vijayawada</option><option>Tirupati</option><option>Rajamahendravaram</option><option>Kakinada</option><option>Other</option></select><input id="cityOther" class="hide" placeholder="Enter city / district" style="margin-top:8px"></div>
+<div class="field"><label>FOREST / SITE / REGION</label><select id="siteSelect"><option value="">Select a site</option><option>Araku Valley</option><option>Seshachalam Hills</option><option>Nallamala Forest</option><option>Kolleru Lake</option><option>Coringa Wildlife Sanctuary</option><option>Papikondalu</option><option>Kambalakonda Wildlife Sanctuary</option><option>Other</option></select><input id="siteOther" class="hide" placeholder="Enter forest / site name" style="margin-top:8px"></div>
+<input id="location" type="hidden"><div class="field"><label>BASELINE</label><select id="baselineMode"><option value="auto">Use earliest recording from this region</option><option value="none">No baseline yet — build one</option></select></div><div class="field"><label>FIELD NOTES</label><input placeholder="Weather, time, notes..."></div><p class="muted">ANALYSIS PIPELINE</p><div class="progress"><span id="bar"></span></div><p class="muted" id="progressText">Ready for an audio sample</p><button class="btn full" onclick="analyze()">Analyze all queued recordings ↗</button></div></div><div class="panel" style="margin-top:15px"><h3>Audio refinement</h3><p class="muted">Basic browser-side listening filters. These do not improve model accuracy.</p><div class="row"><button class="btn ghost" onclick="filterAudio('highpass')">Reduce low rumble</button><button class="btn ghost" onclick="filterAudio('lowpass')">Reduce high hiss</button><button class="btn ghost" onclick="downloadAudio()">Download audio</button><button class="btn ghost" onclick="showToast('Reload the original file to reset filtering.')">Reset original</button></div></div></section>
+<section class="page" id="results"><div class="eyebrow">Acoustic report</div><h1 class="title">Observation intelligence.</h1><p class="sub">Sound events, acoustic properties and confidence indicators.</p><div class="panel" id="observationReview" style="margin-bottom:18px"><div class="eyebrow">Recording review</div><h3 id="reviewTitle">Select a recording from History</h3><div class="grid review-meta" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px"><div><small class="muted">State</small><b id="reviewState">—</b></div><div><small class="muted">City / region</small><b id="reviewRegion">—</b></div><div><small class="muted">Ecosystem</small><b id="reviewType">—</b></div><div><small class="muted">Recorded date & time</small><b id="reviewDate">—</b></div><div><small class="muted">Audio file</small><b id="reviewFile">—</b></div><div><small class="muted">Change vs baseline</small><b id="reviewDeviation">—</b></div></div><p class="muted" id="reviewChanges" style="margin-top:14px">A simple comparison with the first recording from this same site.</p><div class="panel" style="margin-top:14px;background:rgba(255,255,255,.025)"><div class="head"><h3>Sound pattern screening</h3><span class="tag">Prototype estimate</span></div><p class="muted" id="soundClassSummary">Possible sound patterns will appear after analysis. This is an acoustic screening estimate, not confirmed species identification.</p><div id="soundClassTags" class="categories"></div></div><div class="row" style="margin-top:14px;flex-wrap:wrap"><button class="btn alt" onclick="downloadObservationReport()">↓ Download report</button><button class="btn ghost" onclick="printObservationReport()">Print / Save as PDF</button></div><div class="conclusion-box"><h3>What changed in this sound environment?</h3><p class="conclusion-intro" id="conclusionIntro">A plain-English summary will appear here after analysis.</p><ol class="conclusion-list" id="conclusionList"><li>Analyze a recording to see the main observations.</li></ol></div></div><div class="grid stats"><div class="panel"><div class="statlabel">DOMINANT SOUND CLASS</div><div class="statvalue" id="dominant">Bird calls</div><span class="tag">Demo label</span></div><div class="panel"><div class="statlabel">SOUND EVENT DIVERSITY</div><div class="statvalue" id="diversityValue">04 features</div><div class="muted">Sample output</div></div><div class="panel"><div class="statlabel">ACOUSTIC ACTIVITY INDEX</div><div class="statvalue" id="index">76 / 100</div><div class="muted">Not an ecosystem health score</div></div><div class="panel"><div class="statlabel">REPORT STATUS</div><div class="statvalue" style="font-size:21px">Ready</div><div class="muted">Illustrative sample</div></div></div><div class="grid split"><div class="panel"><h3>Detected sound categories</h3><div id="categories" class="categories"></div></div><div class="panel"><h3>Analysis interpretation</h3><p class="muted" id="interpretation">Load Demo Mode to view a sample report. Acoustic patterns do not independently prove ecological change.</p></div></div></section>
+<section class="page" id="dna"><div class="eyebrow">Acoustic identity layer</div><h1 class="title">Every landscape has a signature.</h1><p class="sub">SoundDNA represents a sample's acoustic profile using measurable sound features.</p><div class="panel dna"><div><h2>The acoustic fingerprint</h2><p class="muted">A visual signature based on sound texture, frequency distribution, rhythm and event diversity. This demo graphic is illustrative, not a computed AI embedding.</p><div class="grid" style="grid-template-columns:1fr 1fr"><p>Spectral texture<br><b>Layered</b></p><p>Rhythmic pattern<br><b>Intermittent</b></p><p>Frequency range<br><b>Broadband</b></p><p>Event mix<br><b>Bio + ambient</b></p></div></div><div class="finger"><span>SOUND<br>DNA</span></div></div></section>
+<section class="page" id="change"><div class="eyebrow">Temporal intelligence</div><h1 class="title">Detect change over time.</h1><p class="sub">Compare observations against a reference soundscape and flag unusual acoustic patterns.</p><div class="grid stats"><div class="panel"><div class="statlabel">BASELINE WINDOW</div><div class="statvalue">30 days</div></div><div class="panel"><div class="statlabel">CURRENT DEVIATION</div><div class="statvalue">+14%</div></div><div class="panel"><div class="statlabel">FLAGGED SIGNALS</div><div class="statvalue">03</div></div><div class="panel"><div class="statlabel">STATUS</div><div class="statvalue" style="font-size:22px">Monitoring</div></div></div><div class="panel"><h3>Acoustic deviation timeline</h3><div id="changeTimeline" class="timeline-list"></div><canvas id="changechart" class="chart"></canvas><p class="muted">Timeline is generated from recordings saved in this browser. A change signal may reflect weather, time of day, recording conditions, human activity or ecological factors; field validation is required.</p></div></section>
+<section class="page" id="mapPage"><div class="eyebrow">Geospatial sound intelligence</div><h1 class="title">TerraMap.</h1><p class="sub">Explore illustrative observation sites. Select a marker to inspect its sample record.</p><div class="panel"><div class="head"><h3>Observation network</h3><span class="tag">India field atlas</span></div><div class="mapbox" style="height:auto;min-height:560px;overflow:visible"><div id="map2"></div></div><div class="map-status" id="mapStatus2">Connecting to map…</div><div class="legend"><span>🟢 Bioacoustic sample</span><span>🟠 Change signal sample</span><span>🔵 Water ecosystem sample</span></div><p class="muted">Illustrative India map. Your analyzed recordings appear as coloured site markers by selected region.</p></div></section>
+<section class="page" id="history"><div class="eyebrow">Observation archive</div><h1 class="title">Your field history.</h1><p class="sub">Every processed recording is saved here, grouped by region and date.</p><div class="panel"><div class="head"><h3>Recent observations</h3><span class="muted" id="count">4 records</span></div><div id="historylist"></div></div></section>
+<section class="page" id="assistantPage"><div class="eyebrow">Research companion</div><h1 class="title">Ask TerraTone AI.</h1><p class="sub">Explore concepts and interpret acoustic reports.</p><div class="panel" style="max-width:760px"><div class="bubble">✧</div><h2>Environmental research assistant</h2><p class="muted">This prototype has a local demo assistant. Live AI and voice services need an API and backend integration.</p><div class="row"><button class="btn ghost" onclick="ask('What does acoustic diversity mean?')">Acoustic diversity</button><button class="btn ghost" onclick="ask('How do I interpret change signals?')">Change signals</button><button class="btn ghost" onclick="ask('What should I record in a wetland?')">Wetland tips</button></div><div class="field"><label>YOUR QUESTION</label><input id="question" placeholder="Ask about soundscape ecology..."></div><button class="btn" onclick="sendQuestion()">Ask assistant ↗</button><button class="btn alt" onclick="speak()">🔊 Listen to response</button><p class="panel muted" id="answer" style="margin-top:15px">Your answer will appear here.</p></div></section>
+<section class="page" id="settings"><div class="eyebrow">Personal workspace</div><h1 class="title">Settings.</h1><p class="sub">Tune how TerraTone X groups observations and displays your field workspace.</p><div class="grid split"><div class="panel"><h3>Profile settings</h3><div class="field"><label>DISPLAY NAME</label><input id="displayname" value="Explorer"></div><div class="field"><label>EMAIL ADDRESS</label><input id="profileEmail" type="email" placeholder="you@example.com"></div><button class="btn" onclick="saveName()">Save profile</button></div><div class="panel"><h3>Analysis preferences</h3><div class="field"><label>BASELINE WINDOW</label><select id="settingBaseline"><option value="7">7 days</option><option value="30" selected>30 days</option><option value="90">90 days</option></select></div><div class="field"><label>FEATURE DETAIL</label><select id="featureDetail"><option value="quick">Quick overview</option><option value="detailed" selected>Detailed acoustic features</option></select></div><div class="field"><label>MAP STYLE</label><select id="mapStyle"><option value="dark">Dark terrain</option><option value="street">Street map</option></select></div><button class="btn" onclick="savePreferences()">Save preferences</button></div><div class="panel"><h3>Help & information</h3><p class="muted">Upload several recordings from the same region. Each file is analyzed separately and added to history. The first recording can become the region baseline; later recordings are compared against it.</p><button class="btn ghost" onclick="go('studio')">Open Acoustic Lab ↗</button></div><div class="panel"><h3>Privacy & session</h3><p class="muted">Audio features are calculated locally in this browser. History metadata is saved on this device; no cloud account or server upload is configured.</p><button class="btn alt" onclick="logout()">Log out</button></div></div></section>
+</main></div><div id="assistantFloat" class="assistant hide"><div id="chat" class="chat hide"><div class="head"><b>TerraTone assistant</b><button class="btn ghost" onclick="toggleChat()">×</button></div><div class="chatlog" id="chatlog"><p>Hi! Ask me about acoustic ecology or your demo report.</p></div><div class="chatinput"><input id="chatinput" placeholder="Ask something..."><button class="btn" onclick="chatSend()">↗</button></div></div><button class="assistbtn" onclick="toggleChat()">✧</button></div><div id="toast" class="toast hide"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>
+const samples=[{name:'Dawn chorus — Western Ghats',place:'Agumbe Forest Reserve',type:'Forest',lat:13.508,lon:75.09,dominant:'Bird calls',activity:82,classes:[['Bird calls',82],['Insect chorus',68],['Wind through canopy',44],['Distant water',27]],note:'A layered sample soundscape with intermittent bird-like calls and a steady insect bed. Call timing can vary by season and time of day.'},{name:'Wetland morning — Kolleru',place:'Kolleru Wetland',type:'Wetland',lat:16.62,lon:81.23,dominant:'Waterbird calls',activity:76,classes:[['Waterbird calls',78],['Water movement',65],['Insects',49],['Wind',32]],note:'A mixed wetland sample. Repeat observations at similar times to establish a comparable baseline.'},{name:'River edge — Godavari',place:'Godavari River',type:'River',lat:16.98,lon:81.78,dominant:'Flowing water',activity:71,classes:[['Flowing water',86],['Bird calls',55],['Human activity',28],['Wind',21]],note:'Water sounds dominate this illustrative sample. Compare with rainfall and flow context before interpreting deviations.'},{name:'Coastal dawn — Coringa',place:'Coringa Mangroves',type:'Coastal',lat:16.82,lon:82.28,dominant:'Bird calls',activity:79,classes:[['Bird calls',74],['Insect chorus',58],['Water movement',45],['Wind',36]],note:'A mixed coastal soundscape. Tidal phase, wind and microphone placement can affect observed features.'}];let history=JSON.parse(localStorage.getItem('terratoneHistory')||'null')||[...samples],audioURL=null,recorder=null,recording=false,chunks=[],mainMap=null,map2=null,audioQueue=[],regionBaselines=JSON.parse(localStorage.getItem('terratoneBaselines')||'{}');
+const waveHost=document.getElementById('waves');if(waveHost){for(let i=0;i<70;i++){let b=document.createElement('i');b.style.setProperty('--h',(8+Math.random()*65)+'px');b.style.setProperty('--d',(-Math.random()*2)+'s');waveHost.appendChild(b)}}document.querySelectorAll('.console-wave').forEach(w=>{for(let i=0;i<52;i++){let b=document.createElement('i');b.style.height=(9+Math.random()*65)+'px';b.style.animationDelay=(-Math.random()*1.5)+'s';w.appendChild(b)}})
+function login(){const em=document.getElementById('email')?.value.trim()||'';if(!em){showToast('Please enter your email address.');return}if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){showToast('Enter a valid email address or leave it blank.');return}localStorage.setItem('terratoneEmail',em);enter(document.getElementById('username').value.trim()||'Explorer')}function enter(n){restorePreferences();document.getElementById('login').classList.add('hide');document.getElementById('app').classList.remove('hide');document.getElementById('assistantFloat').classList.remove('hide');setName(n);initCharts();feed();renderHistory();setTimeout(initMaps,250)}
+function setName(n){document.getElementById('profileName').textContent=n;document.getElementById('avatar').textContent=n[0].toUpperCase();document.getElementById('displayname').value=n;const em=localStorage.getItem('terratoneEmail')||'';if(document.getElementById('profileEmail'))document.getElementById('profileEmail').value=em}
+function logout(){document.getElementById('app').classList.add('hide');document.getElementById('assistantFloat').classList.add('hide');document.getElementById('login').classList.remove('hide')}
+function go(id){
+ const target=document.getElementById(id);
+ if(!target || !target.classList.contains('page')){showToast('This section is unavailable. Please try another page.');return}
+ document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x===target));
+ document.querySelectorAll('.nav[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===id));
+ const nav=document.querySelector('.nav[data-page="'+id+'"] .navtext');
+ const crumb=document.getElementById('crumb');if(crumb)crumb.textContent=nav?nav.textContent:id;
+ if(id==='mapPage'){setTimeout(()=>{map2?.invalidateSize();drawFullIndiaMap()},180)}
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.nav[data-page]').forEach(x=>x.addEventListener('click',()=>go(x.dataset.page)));
+function demo(){if(document.getElementById('app').classList.contains('hide'))enter(document.getElementById('username').value||'Explorer');history=[...samples,...history.filter(x=>x.source==='upload')];persistHistory();renderHistory();feed();loadSample(samples[0]);go('overview');showToast('Demo mode loaded. Sample data is illustrative.')}
+function feed(){document.getElementById('feed').innerHTML=samples.slice(0,3).map((s,i)=>`<div class="feedrow"><div class="bubble">${['♧','≋','⌁'][i]}</div><div><strong>${s.name}</strong><small>${s.place} · ${s.type}</small></div><span class="right">${s.activity}%</span></div>`).join('')}
+
+function featureDeltaRows(s){
+ if(!s.features||!s.previousFeatures)return [];
+ const pairs=[['Sound energy','rms',''],['Sound changes','zcr',''],['Sound brightness','centroid',' Hz'],['Loudest moment','peak','']];
+ return pairs.map(([label,key,unit])=>{const a=Number(s.previousFeatures[key]||0),b=Number(s.features[key]||0),pct=a?((b-a)/Math.abs(a))*100:(b?100:0);return {label,before:a,after:b,pct,unit}});
+}
+function plainFeatureMeaning(row){
+ const direction=row.pct>0?'increased':row.pct<0?'decreased':'stayed the same';
+ const amount=Math.abs(row.pct).toFixed(0);
+ const labels={
+  'Sound energy':'Sound energy',
+  'Sound changes':'Sound waveform changes',
+  'Sound brightness':'High-frequency sound',
+  'Loudest moment':'Peak sound level'
+ };
+ return `${amount}% ${direction} in ${labels[row.label]||row.label.toLowerCase()}`;
+}
+function screenSoundPatterns(f){
+ const tags=[];
+ if(f.centroid>1800 && f.zcr>0.055) tags.push({name:'High-frequency activity',why:'The recording contains many quick, higher-pitched sound changes. These can occur in bird or insect calls, but need listening or a trained model to confirm.'});
+ if(f.centroid<900 && f.rms>0.035) tags.push({name:'Low-frequency rumble',why:'The recording has stronger low-pitched energy. Wind, distant vehicles, water movement or handling noise can contribute.'});
+ if(f.rms<0.012) tags.push({name:'Quiet soundscape',why:'The overall recorded sound level is low. This can reflect a quiet place, a distant microphone or a low recording level.'});
+ if(f.centroid>=900 && f.centroid<=3500 && f.rms>=0.012) tags.push({name:'Mixed environmental sound',why:'The recording contains a blend of sound frequencies and activity rather than one clearly dominant acoustic pattern.'});
+ if(!tags.length) tags.push({name:'General environmental audio',why:'The measured features do not point to one clear sound pattern. Review the audio and collect another sample for comparison.'});
+ return tags.slice(0,3);
+}
+function renderSoundScreening(s){
+ const box=document.getElementById('soundClassTags'),summary=document.getElementById('soundClassSummary');
+ if(!box||!summary)return;
+ const tags=s.features?screenSoundPatterns(s.features):[];
+ summary.textContent=s.features?'These are possible sound patterns suggested by basic audio measurements. They are not confirmed bird, insect or animal detections.':'No audio measurements are available for this sample.';
+ box.innerHTML=tags.map(t=>`<div class="category"><b>${esc(t.name)}</b><small>${esc(t.why)}</small></div>`).join('');
+}
+function reportMarkup(s){
+ const rows=featureDeltaRows(s),tags=s.features?screenSoundPatterns(s.features):[];
+ const dt=s.createdAt?new Date(s.createdAt).toLocaleString():'Not available';
+ const points=rows.length?rows.map(plainFeatureMeaning):['This is the first recording for this site. It is the baseline for future comparisons.'];
+ const meta=[['State',s.state||'Not specified'],['Region',[s.city,s.site].filter(Boolean).join(' · ')||s.place||'Not specified'],['Ecosystem',s.type||'Not specified'],['Date & time',dt],['Audio file',s.fileName||s.name||'Not specified'],['Change vs baseline',s.deviation==null?'First recording — baseline':`${s.deviation>=0?'+':''}${s.deviation}% sound activity`]];
+ return `<!doctype html><html><head><meta charset="utf-8"><title>TerraTone X Report</title><style>body{font:15px Arial,sans-serif;max-width:850px;margin:40px auto;padding:0 22px;color:#183326}h1,h2{color:#1d6942}table{width:100%;border-collapse:collapse}td{padding:10px;border-bottom:1px solid #dbe7df}td:first-child{font-weight:bold;width:180px}.box{background:#f1f7f1;padding:18px;border-radius:12px;margin:20px 0}li{margin:10px 0}.note{color:#567064;font-size:13px}</style></head><body><h1>TerraTone X · Recording Report</h1><h2>${esc(s.name||s.fileName||'Audio observation')}</h2><table>${meta.map(([k,v])=>`<tr><td>${esc(k)}</td><td>${esc(String(v))}</td></tr>`).join('')}</table><div class="box"><h2>What changed in this sound environment?</h2><ol>${points.slice(0,5).map(x=>`<li>${esc(x)}</li>`).join('')}</ol></div><h2>Possible sound patterns</h2><ul>${tags.map(t=>`<li><b>${esc(t.name)}</b> — ${esc(t.why)}</li>`).join('')||'<li>Not available</li>'}</ul><h2>Feature comparison</h2><ul>${rows.map(r=>`<li>${esc(r.label)}: ${r.pct>=0?'+':''}${r.pct.toFixed(1)}%</li>`).join('')||'<li>No earlier recording is available for comparison.</li>'}</ul><p class="note">Important: This prototype screens basic acoustic measurements. It does not confirm species, biodiversity or ecosystem health. Weather, time, microphone placement and background noise can affect results. Verify findings with field observations and a validated sound-classification model.</p></body></html>`;
+}
+function downloadObservationReport(){
+ const s=selectedObservation||history[0];if(!s){showToast('Select a recording from History first.');return}
+ const blob=new Blob([reportMarkup(s)],{type:'text/html'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download=`TerraTone-report-${(s.state||'observation').replace(/[^a-z0-9]+/gi,'-')}-${(s.createdAt||Date.now()).slice?String(s.createdAt||Date.now()).slice(0,10):'record'}.html`;a.click();URL.revokeObjectURL(url);showToast('Report downloaded. Open it and choose Print → Save as PDF if needed.');
+}
+function printObservationReport(){
+ const s=selectedObservation||history[0];if(!s){showToast('Select a recording from History first.');return}
+ const w=window.open('','_blank');if(!w){showToast('Allow pop-ups to print this report.');return}
+ w.document.write(reportMarkup(s));w.document.close();w.focus();setTimeout(()=>w.print(),300);
+}
+let selectedObservation=null;
+function showRecordingReview(s){
+ selectedObservation=s;renderSoundScreening(s);loadSample(s);
+ const put=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v||'—'};
+ put('reviewTitle',s.name||s.fileName||'Audio recording');
+ put('reviewState',s.state||'Not specified');
+ put('reviewRegion',[s.city,s.site].filter(Boolean).join(' · ')||s.place||'Not specified');
+ put('reviewType',s.type||'Not specified');
+ put('reviewDate',s.createdAt?new Date(s.createdAt).toLocaleString():'Date unavailable');
+ put('reviewFile',s.fileName||s.name||'—');
+ put('reviewDeviation',s.deviation===null||s.deviation===undefined?'First recording — baseline':(s.deviation>=0?'+':'')+s.deviation+'% sound activity');
+ const rows=featureDeltaRows(s);
+ const first=!rows.length;
+ put('reviewChanges',first?'This is the first recording for this site and ecosystem. It becomes the reference for future comparisons.':rows.map(r=>`${r.label}: ${r.pct>=0?'+':''}${r.pct.toFixed(1)}%`).join(' · '));
+ put('conclusionIntro',first?'This is your starting recording. There is no earlier recording from this same site to compare it with yet.':'Compared with the baseline recording:');
+ const items=first?[
+  `A starting sound record has been saved for ${s.site||s.city||s.place||'this location'}.`,
+  `The ecosystem selected for this recording is ${s.type||'not specified'}.`,
+  `The sound activity score for this recording is ${s.activity??'not available'} out of 100.`,
+  `The main sound label shown by the prototype is ${s.dominant||'not available'}.`,
+  `Upload another recording from the same site to see what has changed over time.`
+ ]:[
+  ...rows.map(plainFeatureMeaning),
+  `Overall sound activity: ${Math.abs(Number(s.deviation||0)).toFixed(0)}% ${Number(s.deviation||0)>=0?'increased':'decreased'}.`
+ ];
+ const list=document.getElementById('conclusionList');if(list)list.innerHTML=items.slice(0,5).map(x=>`<li>${esc(x)}</li>`).join('');
+}
+function loadSample(s){document.getElementById('dominant').textContent=s.dominant;document.getElementById('index').textContent=s.activity+' / 100';document.getElementById('interpretation').textContent=s.note;document.getElementById('diversityValue').textContent=(s.classes?.length||0)+' features';document.getElementById('categories').innerHTML=(s.classes||[]).map(c=>`<div><div class="catline"><span>${esc(c[0])}</span><span style="color:var(--g)">${c[1]}%</span></div><div class="progress"><span style="width:${c[1]}%"></span></div></div>`).join('')}
+function renderHistory(){
+ document.getElementById('count').textContent=history.length+' records';
+ document.getElementById('historylist').innerHTML=history.map((s,i)=>{
+  const dt=s.createdAt?new Date(s.createdAt).toLocaleString():(s.source==='upload'?'Saved recording':'Demo sample');
+  const state=s.state||'State not entered',region=[s.city,s.site].filter(Boolean).join(' · ')||s.place||'Region not entered';
+  const change=s.baseline?'Baseline':s.deviation!==null&&s.deviation!==undefined?(s.deviation>=0?'+':'')+s.deviation+'% change':'Awaiting comparison';
+  return `<div class="historyrow"><div class="bubble">♫</div><div style="flex:1;min-width:0"><strong>${esc(s.name||s.fileName||'Audio recording')}</strong><small>State: ${esc(state)} · Region: ${esc(region)}</small><small>Date & time: ${esc(dt)} · Ecosystem: ${esc(s.type||'Not specified')}</small>${s.fileName?`<small>Audio: ${esc(s.fileName)}</small>`:''}</div><span class="tag">${esc(change)}</span><div class="history-actions"><button class="btn ghost" onclick="showRecordingReview(history[${i}]);go('results')">Report</button></div></div>`;
+ }).join('')||'<p class="muted">No recordings yet. Upload audio in Acoustic Lab to begin.</p>';
+ refreshTimeline();if(document.getElementById('map'))mapFallback('map','mapStatus');if(document.getElementById('map2'))mapFallback('map2','mapStatus2')
+}
+function chart(id,a,b){let c=document.getElementById(id);if(!c)return;let w=c.clientWidth,h=c.clientHeight,d=window.devicePixelRatio||1;c.width=w*d;c.height=h*d;let x=c.getContext('2d');x.scale(d,d);for(let j=0;j<4;j++){let y=15+j*(h-30)/3;x.strokeStyle='#b5ddc411';x.beginPath();x.moveTo(20,y);x.lineTo(w-15,y);x.stroke()}[a,b].forEach((arr,k)=>{x.beginPath();arr.forEach((v,i)=>{let px=20+i*(w-40)/(arr.length-1),py=h-18-v/100*(h-35);i?x.lineTo(px,py):x.moveTo(px,py)});x.strokeStyle=k?'#d4b578':'#8be28c';x.lineWidth=2.5;x.stroke()})}
+function initCharts(){chart('chart',[42,48,46,61,56,69,76],[28,32,31,38,35,40,43]);refreshTimeline()}
+function refreshTimeline(){const box=document.getElementById('changeTimeline');if(!box)return;const rows=history.filter(s=>s.source==='upload').slice(0,12);if(!rows.length){box.innerHTML='<p class="muted">No timeline yet. Analyze recordings to build a timeline for your selected region.</p>';chart('changechart',[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]);return}box.innerHTML=rows.map((s,i)=>`<div class="timeline-item"><span class="timeline-node" style="background:${s.baseline?'#8de49a':s.deviation!==null&&s.deviation!==undefined&&Math.abs(s.deviation)>15?'#f0c16d':'#76c7ef'}"></span><div><b>${esc(s.fileName||s.name)}</b><small>${esc(s.place)} · ${s.createdAt?new Date(s.createdAt).toLocaleString():'Saved recording'}</small><small>${s.baseline?'Baseline established':s.deviation!==null&&s.deviation!==undefined?'Overall acoustic activity index change: '+(s.deviation>=0?'+':'')+s.deviation+'%':'Awaiting comparable baseline'}</small></div></div>`).join('');const vals=rows.slice().reverse().map(s=>s.activity||0);chart('changechart',vals,vals.map(v=>Math.max(0,Math.min(100,v*.75))))}
+
+
+const indiaSites=[{name:'Andhra Pradesh',x:570,y:330},{name:'Karnataka',x:485,y:360},{name:'Kerala',x:495,y:430},{name:'Tamil Nadu',x:560,y:420},{name:'Maharashtra',x:420,y:270},{name:'Odisha',x:650,y:265},{name:'Assam',x:820,y:170},{name:'Uttarakhand',x:530,y:115},{name:'West Bengal',x:710,y:220},{name:'Madhya Pradesh',x:500,y:230}];
+function mapFallback(id,status){
+ const el=document.getElementById(id);if(!el)return;
+ const records=history.filter(s=>s.source==='upload');
+ const stateXY={
+ 'Jammu and Kashmir':[397,90],'Ladakh':[470,65],'Himachal Pradesh':[470,115],'Punjab':[420,150],'Chandigarh':[450,150],'Uttarakhand':[510,150],'Haryana':[440,180],'Delhi':[465,190],'Rajasthan':[365,245],'Uttar Pradesh':[520,220],'Sikkim':[690,220],'Arunachal Pradesh':[770,185],'Nagaland':[790,225],'Manipur':[785,250],'Mizoram':[770,275],'Tripura':[735,255],'Meghalaya':[735,220],'Assam':[740,205],'Gujarat':[315,330],'Madhya Pradesh':[480,315],'Bihar':[625,245],'Jharkhand':[640,285],'West Bengal':[685,280],'Chhattisgarh':[570,340],'Maharashtra':[420,390],'Odisha':[650,345],'Telangana':[520,405],'Goa':[405,470],'Karnataka':[455,485],'Andhra Pradesh':[565,455],'Kerala':[485,555],'Tamil Nadu':[555,535]
+ };
+ const palette={forest:'#8ee39a',wetland:'#f1c16d',water:'#70c9ef',coast:'#70c9ef',urban:'#d29bf0',other:'#c3d1d0'};
+ const dots=records.map((s,i)=>{
+   const state=s.state||'Andhra Pradesh',pt=stateXY[state]||stateXY['Andhra Pradesh'];
+   const cat=String(s.type||'').toLowerCase();const color=cat.includes('forest')?'#8ee39a':cat.includes('wet')?'#f1c16d':cat.includes('river')||cat.includes('coast')?'#70c9ef':cat.includes('urban')?'#d29bf0':palette.other;
+   const dx=((i%5)-2)*7,dy=(Math.floor(i/5)%4)*7;
+   return `<g class="site-dot" onclick="loadSample(history.find(x=>x.id==='${String(s.id).replace(/'/g,'')}'));go('results')" style="cursor:pointer"><circle cx="${pt[0]+dx}" cy="${pt[1]+dy}" r="13" fill="${color}" opacity=".22"/><circle cx="${pt[0]+dx}" cy="${pt[1]+dy}" r="6" fill="${color}" stroke="#07140e" stroke-width="2"/><title>${esc(s.site||s.place)} · ${esc(s.fileName||s.name)}</title></g>`;
+ }).join('');
+ const stateLabels=[
+ ['J&K',370,95],['Ladakh',475,48],['Himachal',470,125],['Punjab',395,160],['Uttarakhand',520,135],['Rajasthan',340,255],['Uttar Pradesh',510,205],['Sikkim',690,205],['Arunachal',785,170],['Assam',740,220],['Bihar',620,235],['Meghalaya',710,240],['Nagaland',800,230],['Manipur',795,260],['Gujarat',270,330],['Madhya Pradesh',455,300],['West Bengal',680,290],['Jharkhand',630,300],['Chhattisgarh',560,350],['Maharashtra',390,405],['Odisha',655,360],['Telangana',510,410],['Goa',390,470],['Karnataka',445,500],['Andhra Pradesh',575,455],['Kerala',470,570],['Tamil Nadu',565,550]
+ ].map(([n,x,y])=>`<text x="${x}" y="${y}" class="state-label">${n}</text>`).join('');
+ el.innerHTML=`<div class="india-atlas">
+ <div class="atlas-heading"><div><b>INDIA · ACOUSTIC FIELD MAP</b><small>Recording locations by state and ecosystem</small></div><span>${records.length} SITES</span></div>
+ <svg viewBox="230 15 650 625" role="img" aria-label="Full illustrative outline map of India with state labels and coloured recording markers" preserveAspectRatio="xMidYMid meet">
+ <defs><linearGradient id="indiaLand" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a6d99b"/><stop offset=".55" stop-color="#57966e"/><stop offset="1" stop-color="#2d6449"/></linearGradient><filter id="indiaGlow"><feGaussianBlur stdDeviation="5"/></filter></defs>
+ <path d="M365 52 L405 43 450 53 485 72 520 78 548 99 570 119 600 125 627 145 645 164 682 174 713 183 742 195 773 203 805 219 820 237 802 252 785 270 768 292 752 320 730 337 708 356 695 378 678 401 661 425 649 450 636 474 620 497 609 526 594 551 577 581 562 605 548 590 539 563 528 540 515 514 499 491 484 466 470 444 449 427 427 406 406 382 388 356 369 330 350 304 333 278 319 250 305 221 293 191 285 162 291 135 306 111 330 87 350 67Z" fill="url(#indiaLand)" stroke="#d9f1d0" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M760 188 L790 177 824 180 847 193 837 210 810 217 786 207Z" fill="url(#indiaLand)" stroke="#d9f1d0" stroke-width="2"/>
+ <path d="M365 52L450 53 520 78 570 119 627 145 682 174 742 195 805 219M306 111L388 160 470 178 550 190 645 205 742 195M293 191L390 220 490 235 590 248 690 260 785 270M319 250L410 285 500 305 590 325 680 340 752 320M350 304L435 345 520 370 610 390 695 378M388 356L470 405 550 445 636 474M427 406L499 466 577 581" fill="none" stroke="#d9efce" stroke-width="1.3" opacity=".5"/>
+ <path d="M760 188L790 177 824 180 847 193 837 210 810 217 786 207" fill="none" stroke="#d9f1d0" stroke-width="2"/>
+ <ellipse cx="560" cy="621" rx="7" ry="13" fill="#79b88b"/><ellipse cx="580" cy="631" rx="4" ry="8" fill="#79b88b"/>
+ ${stateLabels}${dots}
+ <text x="280" y="615" fill="#9bbca4" font-size="10" letter-spacing="2">ARABIAN SEA</text><text x="705" y="600" fill="#9bbca4" font-size="10" letter-spacing="2">BAY OF BENGAL</text>
+ </svg>
+ <div class="atlas-key"><span><i style="background:#8ee39a"></i> Forest</span><span><i style="background:#f1c16d"></i> Wetland</span><span><i style="background:#70c9ef"></i> River / coast</span><span><i style="background:#d29bf0"></i> Urban</span><span><i style="background:#c3d1d0"></i> Other</span></div>
+ <div class="atlas-count">${records.length? 'Select a coloured marker to open its recording report.':'No uploaded recordings yet · markers will appear after analysis.'}</div>
+ </div>`;
+ if(status){const s=document.getElementById(status);if(s)s.textContent='India field map ready · offline illustration · recording markers update from History'}
+}
+function initMaps(){mapFallback('map','mapStatus');mapFallback('map2','mapStatus2');drawFullIndiaMap()}
+
+async function drawFullIndiaMap(){
+ const targets=['map','map2'];
+ const url='https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@main/geojson/india.geojson';
+ try{
+  const response=await fetch(url,{cache:'force-cache'});
+  if(!response.ok) throw new Error('Map data unavailable');
+  const geo=await response.json();
+  const W=900,H=690,pad=34,minLon=67.5,maxLon=98.5,minLat=5.5,maxLat=37.8;
+  const project=(lon,lat)=>[pad+(lon-minLon)/(maxLon-minLon)*(W-pad*2),H-pad-(lat-minLat)/(maxLat-minLat)*(H-pad*2)];
+  const colors=['#a5d99a','#8ecb9a','#b3dda1','#79b98c','#9bcf9b','#76ad86','#b0d59b','#83c69b'];
+  const features=geo.features||[];
+  const stateNames=[...new Set(features.map(f=>f.properties?.st_nm).filter(Boolean))].sort();
+  const stateColor=Object.fromEntries(stateNames.map((n,i)=>[n,colors[i%colors.length]]));
+  const pathForRing=ring=>ring.filter((_,i)=>i%2===0 || i===ring.length-1).map((pt,i)=>{const [x,y]=project(pt[0],pt[1]);return (i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)}).join(' ')+' Z';
+  const shapes=[];
+  const centers={};
+  for(const f of features){
+   const name=f.properties?.st_nm||'India';
+   let polys=f.geometry?.type==='Polygon'?[f.geometry.coordinates]:f.geometry?.type==='MultiPolygon'?f.geometry.coordinates:[];
+   for(const poly of polys){
+    if(!poly?.[0]?.length) continue;
+    const ring=poly[0], d=pathForRing(ring);
+    const observed=stateFill[String(name).trim().toLowerCase()];
+    const areaFill=observed||stateColor[name]||'#294637';
+    const opacity=observed?'.96':'.42';
+    shapes.push(`<path d="${d}" fill="${areaFill}" fill-opacity="${opacity}" stroke="#e4f5dc" stroke-opacity="${observed?'.95':'.42'}" stroke-width="${observed?'1.05':'.62'}"><title>${name}${observed?' · recording uploaded':''} · ${f.properties?.district||'Region'}</title></path>`);
+    if(!centers[name]) centers[name]=[];
+    let sx=0,sy=0,c=0;for(const pt of ring){sx+=pt[0];sy+=pt[1];c++}
+    if(c)centers[name].push([sx/c,sy/c]);
+   }
+  }
+  const labels=Object.entries(centers).map(([name,arr])=>{
+   const lon=arr.reduce((a,p)=>a+p[0],0)/arr.length,lat=arr.reduce((a,p)=>a+p[1],0)/arr.length,[x,y]=project(lon,lat);
+   const short=name.replace(' Pradesh','').replace(' and ',' & ');
+   return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" font-size="9" font-weight="700" fill="#f3fff0" stroke="#173322" stroke-width="2.6" paint-order="stroke">${short}</text>`;
+  }).join('');
+  const stateCoords={
+   'Andhra Pradesh':[80.2,16.5],'Arunachal Pradesh':[94.5,28.2],'Assam':[92.8,26.2],'Bihar':[85.8,25.8],
+   'Chhattisgarh':[82,21.3],'Goa':[74,15.4],'Gujarat':[71.5,22.5],'Haryana':[76,29.2],
+   'Himachal Pradesh':[77.2,31.7],'Jharkhand':[85.5,23.6],'Karnataka':[76,15.2],'Kerala':[76.2,10.5],
+   'Madhya Pradesh':[78.5,23.5],'Maharashtra':[75.5,19.2],'Manipur':[93.9,24.7],'Meghalaya':[91.3,25.5],
+   'Mizoram':[92.8,23.2],'Nagaland':[94.1,26.1],'Odisha':[85.5,20.3],'Punjab':[75.2,31],
+   'Rajasthan':[73.8,26.5],'Sikkim':[88.5,27.5],'Tamil Nadu':[78.5,11.1],'Telangana':[79.2,17.9],
+   'Tripura':[91.7,23.8],'Uttar Pradesh':[80.5,26.8],'Uttarakhand':[79,30],'West Bengal':[88,23.5],
+   'Jammu and Kashmir':[76.5,34.2],'Ladakh':[77.8,34.8],'Delhi':[77.2,28.6]
+  };
+  const records=history.filter(s=>s.source==='upload' && s.state && s.state!=='India');
+  const stateRecords={};
+  records.forEach(r=>{const k=String(r.state||'').trim().toLowerCase();if(!k)return;(stateRecords[k]??=[]).push(r)});
+  const stateFill={};
+  Object.entries(stateRecords).forEach(([state,items])=>{
+    const kinds=[...new Set(items.map(x=>String(x.type||'Forest').toLowerCase()))];
+    const kind=kinds[0]||'forest';
+    stateFill[state]=kind.includes('wet')?'#c39b58':kind.includes('river')||kind.includes('coast')?'#4f9db5':kind.includes('urban')?'#9873b9':kind.includes('grass')?'#b2a85b':'#54b878';
+  });
+  const markers=records.map((s,i)=>{
+   const pos=stateCoords[s.state]||stateCoords['Andhra Pradesh'];const [x,y]=project(pos[0]+(i%4)*.13,pos[1]+Math.floor(i/4)*.12);
+   const typ=String(s.type||'').toLowerCase(),col=typ.includes('wet')?'#f1c16d':typ.includes('river')||typ.includes('coast')?'#70c9ef':typ.includes('urban')?'#d29bf0':'#8ee39a';
+   return `<g><circle cx="${x}" cy="${y}" r="12" fill="${col}" opacity=".24"/><circle cx="${x}" cy="${y}" r="5.2" fill="${col}" stroke="#092016" stroke-width="2"><title>${esc(s.place||s.name)} · ${esc(s.type||'Observation')}</title></circle></g>`;
+  }).join('');
+  const svg=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="India map with state and district boundaries" style="width:100%;height:auto;max-height:680px;display:block"><defs><linearGradient id="sea" x2="0" y2="1"><stop stop-color="#102d24"/><stop offset="1" stop-color="#07150f"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#sea)"/><text x="90" y="625" fill="#8fb4a0" font-size="13" letter-spacing="3">ARABIAN SEA</text><text x="680" y="625" fill="#8fb4a0" font-size="13" letter-spacing="3">BAY OF BENGAL</text>${shapes.join('')}${labels}${markers}<text x="30" y="30" fill="#d8efdb" font-size="11" letter-spacing="2">INDIA · STATE & DISTRICT ATLAS</text></svg>`;
+  for(const id of targets){const el=document.getElementById(id);if(el){el.innerHTML=`<div style="background:#0a1a12;border:1px solid #a6d6ad22;border-radius:14px;padding:12px">${svg}<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#a9c4b1;font-size:10px;padding:8px 5px"><span>● Coloured state = audio uploaded</span><span>● ${records.length} uploaded observations</span><span>Muted state = no recording yet</span></div></div>`;}}
+  for(const id of ['mapStatus','mapStatus2']){const el=document.getElementById(id);if(el)el.textContent='India map: each state with an analyzed recording is filled by ecosystem type; states without recordings stay muted. Upload another region to colour it too.'}
+ }catch(err){
+  for(const id of ['mapStatus','mapStatus2']){const el=document.getElementById(id);if(el)el.textContent='Offline map view · connect to the internet to load detailed state and district boundaries.'}
+ }
+}
+
+
+const cityChoices={
+'Andhra Pradesh':['Amaravati','Visakhapatnam','Vijayawada','Tirupati','Rajamahendravaram','Kakinada','Araku Valley','Nellore','Kurnool'],
+'Karnataka':['Bengaluru','Mysuru','Mangaluru','Shivamogga','Chikkamagaluru','Kodagu'],
+'Kerala':['Thiruvananthapuram','Kochi','Kozhikode','Wayanad','Idukki','Alappuzha'],
+'Tamil Nadu':['Chennai','Coimbatore','Madurai','Ooty','Tiruchirappalli','Kanyakumari'],
+'Telangana':['Hyderabad','Warangal','Nizamabad','Khammam','Adilabad'],
+'Odisha':['Bhubaneswar','Cuttack','Puri','Sambalpur','Koraput','Kendujhar'],
+'Maharashtra':['Mumbai','Pune','Nagpur','Nashik','Kolhapur','Chandrapur'],
+'West Bengal':['Kolkata','Darjeeling','Siliguri','Howrah','Jalpaiguri'],
+'Assam':['Guwahati','Jorhat','Dibrugarh','Tezpur','Silchar'],
+'Uttarakhand':['Dehradun','Nainital','Haridwar','Almora','Rishikesh'],
+'Madhya Pradesh':['Bhopal','Indore','Jabalpur','Gwalior','Satna'],
+'Rajasthan':['Jaipur','Udaipur','Jodhpur','Kota','Bikaner'],
+'Gujarat':['Ahmedabad','Surat','Vadodara','Rajkot','Junagadh'],
+'Goa':['Panaji','Margao','Mapusa','Canacona']
+};
+function updateCityChoices(state){const sel=document.getElementById('citySelect');if(!sel)return;const vals=cityChoices[state]||[];sel.innerHTML='<option value="">Select city / district</option>'+vals.map(v=>`<option>${v}</option>`).join('')+'<option>Other</option>';document.getElementById('cityOther').classList.add('hide')}
+['stateSelect','citySelect','siteSelect'].forEach(id=>{const sel=document.getElementById(id);if(sel)sel.addEventListener('change',()=>{if(id==='citySelect')document.getElementById('cityOther').classList.toggle('hide',sel.value!=='Other');if(id==='siteSelect')document.getElementById('siteOther').classList.toggle('hide',sel.value!=='Other');if(id==='stateSelect'){if(sel.value==='Other'){const custom=prompt('Enter state / region name');if(custom)sel.add(new Option(custom,custom,true,true));}updateCityChoices(sel.value)}})});
+document.getElementById('file').onchange=e=>{const files=[...e.target.files];if(!files.length)return;audioQueue=files.map((file,i)=>({file,id:'q'+Date.now()+i,status:'Queued'}));showQueue();previewQueueItem(0);document.getElementById('filename').textContent=files.length+' audio file(s) queued';document.getElementById('recordstatus').textContent='Multiple recordings ready. Enter one shared region/site name before analysis.'}
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function showQueue(){const box=document.getElementById('queue');if(!box)return;box.innerHTML=audioQueue.map((q,i)=>`<div class="queue-item"><span>♫</span><div class="qname"><b>${esc(q.file.name)}</b><small>${(q.file.size/1048576).toFixed(2)} MB</small></div><span class="qstate">${q.status}</span><button class="btn ghost" onclick="previewQueueItem(${i})">Preview</button></div>`).join('')}
+function previewQueueItem(i){const q=audioQueue[i];if(!q)return;if(audioURL)URL.revokeObjectURL(audioURL);audioURL=URL.createObjectURL(q.file);const a=document.getElementById('preview');a.src=audioURL;a.classList.remove('hide');document.getElementById('recordstatus').textContent='Previewing '+q.file.name}
+function persistHistory(){try{localStorage.setItem('terratoneHistory',JSON.stringify(history.slice(0,150)))}catch(e){showToast('Browser storage is full; history is available for this session.')}}
+
+function clearAudio(){let a=document.getElementById('preview');a.pause();a.removeAttribute('src');a.classList.add('hide');document.getElementById('file').value='';document.getElementById('filename').textContent='No files selected';document.getElementById('queue').innerHTML='';audioQueue=[];if(audioURL)URL.revokeObjectURL(audioURL);audioURL=null}
+async function toggleRecord(){if(recording){recorder.stop();recording=false;document.getElementById('record').textContent='● Record audio';return}try{let stream=await navigator.mediaDevices.getUserMedia({audio:true});chunks=[];recorder=new MediaRecorder(stream);recorder.ondataavailable=e=>chunks.push(e.data);recorder.onstop=()=>{let blob=new Blob(chunks,{type:recorder.mimeType||'audio/webm'});let f=new File([blob],'field-recording-'+new Date().toISOString().slice(0,10)+'.webm',{type:blob.type});audioQueue.push({file:f,id:'q'+Date.now(),status:'Queued'});showQueue();if(audioURL)URL.revokeObjectURL(audioURL);audioURL=URL.createObjectURL(f);let a=document.getElementById('preview');a.src=audioURL;a.classList.remove('hide');document.getElementById('filename').textContent=audioQueue.length+' audio file(s) queued';document.getElementById('recordstatus').textContent='Recording saved. Preview before analysis.';stream.getTracks().forEach(t=>t.stop())};recorder.start();recording=true;document.getElementById('record').textContent='■ Stop recording';document.getElementById('recordstatus').textContent='Recording…'}catch(e){showToast('Microphone access unavailable. Allow permission and use HTTPS or localhost.')}}
+async function extractFeatures(file){
+ const C=window.AudioContext||window.webkitAudioContext;if(!C)throw new Error('Web Audio is unavailable');
+ const ctx=new C();try{const buffer=await ctx.decodeAudioData(await file.arrayBuffer());const x=buffer.getChannelData(0),sr=buffer.sampleRate;const stride=Math.max(1,Math.floor(x.length/100000));let sum=0,peak=0,cross=0,prev=x[0]||0,n=0;
+ for(let i=0;i<x.length;i+=stride){const v=x[i];sum+=v*v;peak=Math.max(peak,Math.abs(v));if((v>=0&&prev<0)||(v<0&&prev>=0))cross++;prev=v;n++}
+ const rms=Math.sqrt(sum/Math.max(1,n)),zcr=cross/Math.max(1,n);const N=2048;let weighted=0,total=0,max=0,dominant=0;
+ const frames=Math.min(4,Math.floor(x.length/N));for(let f=0;f<frames;f++){const off=f*Math.max(N,Math.floor(sr*.3));if(off+N>=x.length)break;for(let k=1;k<N/2;k++){let re=0,im=0;for(let j=0;j<N;j+=8){const w=.5-.5*Math.cos(2*Math.PI*j/(N-1)),v=x[off+j]*w,ang=2*Math.PI*k*j/N;re+=v*Math.cos(ang);im-=v*Math.sin(ang)}const mag=Math.hypot(re,im),hz=k*sr/N;weighted+=hz*mag;total+=mag;if(mag>max){max=mag;dominant=hz}}}
+ const centroid=total?weighted/total:0,activity=Math.max(0,Math.min(100,Math.round(rms*240+zcr*90+Math.min(buffer.duration,180)*.12)));
+ return {duration:buffer.duration,rms,zcr,peak,centroid,dominant,activity,sampleRate:sr};
+ }finally{await ctx.close()}
+}
+function makeFeatureClasses(f){return [['Signal energy',Math.min(99,Math.round(f.rms*420))],['Zero-crossing activity',Math.min(99,Math.round(f.zcr*350))],['Spectral centroid',Math.min(99,Math.round(f.centroid/65))],['Peak amplitude',Math.min(99,Math.round(f.peak*100))]]}
+async function analyze(){
+ if(!audioQueue.length){showToast('Choose one or more audio files or record audio first.');return}
+ const state=document.getElementById('stateSelect').value||'India',cityVal=document.getElementById('citySelect').value,city=cityVal==='Other'?document.getElementById('cityOther').value.trim():cityVal,siteVal=document.getElementById('siteSelect').value,site=siteVal==='Other'?document.getElementById('siteOther').value.trim():siteVal,region=[site,city,state].filter(Boolean).join(' · ')||'Unspecified region';document.getElementById('location').value=region;const type=document.getElementById('ecosystem').value,nameBase=document.getElementById('obsname').value.trim(),key=(region+'|'+type).toLowerCase();
+ const bar=document.getElementById('bar'),txt=document.getElementById('progressText'),button=document.querySelector('#studio button[onclick="analyze()"]');button.disabled=true;button.textContent='Analyzing…';let ok=0,failed=0;
+ for(let i=0;i<audioQueue.length;i++){const q=audioQueue[i];q.status='Analyzing';showQueue();txt.textContent=`Extracting acoustic features · ${i+1}/${audioQueue.length}`;bar.style.width=Math.round(i/audioQueue.length*100)+'%';
+  try{const f=await extractFeatures(q.file),prior=regionBaselines[key];const deviation=prior?Math.round((f.activity-prior.activity)/Math.max(1,prior.activity)*100):null;const now=new Date().toISOString();
+   const previousFeatures=prior?.features||null;const s={id:'obs-'+Date.now()+'-'+i,name:nameBase?(audioQueue.length>1?nameBase+' — '+q.file.name:nameBase):q.file.name,place:region,state,city,site,type,dominant:'Acoustic feature profile',activity:f.activity,classes:makeFeatureClasses(f),note:`Measured from ${q.file.name}. Duration ${f.duration.toFixed(1)} s; RMS ${f.rms.toFixed(4)}; spectral centroid ${Math.round(f.centroid)} Hz; zero-crossing rate ${f.zcr.toFixed(3)}. ${prior?`Compared with the first saved recording in this region: overall acoustic activity index ${deviation>=0?'+':''}${deviation}%. Feature-by-feature differences are shown in the recording review.`:'First recording for this region. It has been saved as the reference baseline.'} These are measured audio features, not species identification or proof of ecological change.`,source:'upload',fileName:q.file.name,createdAt:now,features:f,previousFeatures,baseline:!prior,deviation};
+   if(!prior&&document.getElementById('baselineMode').value!=='none'){regionBaselines[key]={activity:f.activity,features:f,createdAt:now};localStorage.setItem('terratoneBaselines',JSON.stringify(regionBaselines));s.baseline=true}
+   history.unshift(s);ok++;q.status='Analyzed';loadSample(s);
+  }catch(err){failed++;q.status='Unsupported audio';}
+  showQueue();
+ }
+ persistHistory();renderHistory();drawFullIndiaMap();if(history[0]?.source==='upload'){showRecordingReview(history[0]);go('results')}bar.style.width='100%';txt.textContent=`Complete · ${ok} analyzed · ${failed} failed`;button.disabled=false;button.textContent='Analyze all queued recordings ↗';
+ if(ok){loadSample(history[0]);renderHistory();go('results');showToast(`${ok} recording(s) analyzed and saved to History.`)}if(failed)showToast('Some files could not be decoded. WAV or MP3 usually works best.');
+}
+async function filterAudio(type){let a=document.getElementById('preview');if(!audioURL){showToast('Load audio first.');return}try{let C=AudioContext||webkitAudioContext,ctx=new C(),buf=await ctx.decodeAudioData(await(await fetch(audioURL)).arrayBuffer()),src=ctx.createBufferSource(),f=ctx.createBiquadFilter(),dest=ctx.createMediaStreamDestination();src.buffer=buf;f.type=type;f.frequency.value=type==='highpass'?100:8500;src.connect(f);f.connect(dest);let r=new MediaRecorder(dest.stream),parts=[];r.ondataavailable=e=>parts.push(e.data);r.onstop=()=>{let blob=new Blob(parts,{type:r.mimeType});if(audioURL)URL.revokeObjectURL(audioURL);audioURL=URL.createObjectURL(blob);a.src=audioURL;ctx.close();showToast('Filtered listening copy created.')};r.start();src.start();src.onended=()=>r.stop()}catch(e){showToast('Filtering is not supported for this audio format in this browser.')}}
+function downloadAudio(){if(!audioURL){showToast('Load audio first.');return}let a=document.createElement('a');a.href=audioURL;a.download='terratone-audio-sample';a.click()}
+function saveName(){setName(document.getElementById('displayname').value.trim()||'Explorer');localStorage.setItem('terratoneEmail',document.getElementById('profileEmail')?.value.trim()||'');showToast('Profile updated on this device.')}function savePreferences(){const p={baseline:document.getElementById('settingBaseline').value,detail:document.getElementById('featureDetail').value,map:document.getElementById('mapStyle').value};localStorage.setItem('terratonePrefs',JSON.stringify(p));showToast('Preferences saved on this device.')}function restorePreferences(){try{const p=JSON.parse(localStorage.getItem('terratonePrefs')||'{}');if(p.baseline)document.getElementById('settingBaseline').value=p.baseline;if(p.detail)document.getElementById('featureDetail').value=p.detail;if(p.map)document.getElementById('mapStyle').value=p.map}catch(e){}}
+function setName(n){document.getElementById('profileName').textContent=n;document.getElementById('avatar').textContent=n[0].toUpperCase();document.getElementById('displayname').value=n}
+function answer(q){q=q.toLowerCase();if(q.includes('diversity'))return 'Acoustic diversity describes the variety and distribution of sound patterns in a recording. It is not the same as species richness.';if(q.includes('change')||q.includes('signal'))return 'A change signal means recorded acoustic features differ from a baseline. Check weather, time, microphone placement and nearby human activity before proposing an ecological explanation.';if(q.includes('wetland'))return 'For wetland surveys, record at consistent times, note wind and water conditions, keep microphone placement consistent and repeat samples across days and seasons.';return 'Compare repeated recordings made with similar equipment, placement, time and weather. Review event timing and spectral patterns, then verify ecological interpretations with field observations.'}
+function ask(q){document.getElementById('question').value=q;sendQuestion()}function sendQuestion(){let q=document.getElementById('question').value.trim();if(q)document.getElementById('answer').textContent=answer(q)}function speak(){if('speechSynthesis'in window)speechSynthesis.speak(new SpeechSynthesisUtterance(document.getElementById('answer').textContent));else showToast('Speech output unavailable in this browser.')}
+function toggleChat(){document.getElementById('chat').classList.toggle('hide')}function chatSend(){let q=document.getElementById('chatinput').value.trim();if(!q)return;let l=document.getElementById('chatlog');l.innerHTML+=`<p><b>You:</b> ${esc(q)}</p><p><b>TerraTone:</b> ${esc(answer(q))}</p>`;document.getElementById('chatinput').value='';l.scrollTop=l.scrollHeight}function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+let toastTimer;function showToast(t){let el=document.getElementById('toast');el.textContent=t;el.classList.remove('hide');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.add('hide'),3500)}window.addEventListener('resize',()=>{if(!document.getElementById('app').classList.contains('hide')){initCharts();mainMap?.invalidateSize();map2?.invalidateSize()}})
+</script></body></html>
